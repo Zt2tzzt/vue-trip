@@ -1,42 +1,33 @@
 <script setup>
-import tabBarData from "@/assets/data/tab-bar";
-import { getAssetURL } from "@/utils/load-asstes";
+import tabBarData from '@/assets/data/tab-bar'
+import { getAssetURL } from '@/utils/load-asstes'
+import { ref } from 'vue'
+
+const currentIndex = ref(0)
 </script>
 
 <template>
-	<section class="tab-bar">
-		<template v-for="item of tabBarData" :key="item.text">
-			<div class="tab-bar-item">
-				<img :src="getAssetURL(item.image)" alt="">
-				<span>{{item.text}}</span>
-			</div>
-		</template>
-	</section>
+	<footer class="tab-bar">
+		<van-tabbar v-model="currentIndex" active-color="#ff9845">
+			<template v-for="(item, index) of tabBarData" :key="item.text">
+				<van-tabbar-item icon="home-o" :to="item.path">
+					<template #icon="props">
+						<img
+							:src="getAssetURL(props.active ? item.imageActive : item.image)"
+						/>
+					</template>
+					<!-- 默认插槽 -->
+					<span>{{ item.text }}</span>
+				</van-tabbar-item>
+			</template>
+		</van-tabbar>
+	</footer>
 </template>
 
 <style scoped lang="less">
 .tab-bar {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 50px;
-	display: flex;
-	border-top: 1px solid #f3f3f3;
-
-	.tab-bar-item {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		img {
-			width: 36px;
-		}
-		span {
-			font-size: 12pz;
-			margin-top: 2px;
-		}
+	img {
+		height: 26px;
 	}
 }
 </style>

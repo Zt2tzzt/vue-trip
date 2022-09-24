@@ -1,4 +1,17 @@
+:root {
+	--primary-color: #ff9845;
+}
+
 body {
 	font-size: 14px;
 	font-family: 'Courier New', Courier, monospace;
+}
+
+/* 组件中用于隐藏底部 TabBar 的样式 */
+.top-page {
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+  /* height: 100vh;
+  overflow-y: auto; */
 }
