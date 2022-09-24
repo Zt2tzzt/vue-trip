@@ -3,8 +3,8 @@
 </script>
 
 <template>
-	<div class="app">
-		<h1>app</h1>
+	<div class="favor">
+		<h1>favor</h1>
 	</div>
 </template>
 
