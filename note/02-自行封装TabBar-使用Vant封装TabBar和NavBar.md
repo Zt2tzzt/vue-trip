@@ -158,7 +158,7 @@ const currentIndex = ref(0)
 </style>
 ```
 
-# 重置样式样式，3种情况
+# 重置样式，3种情况
 
 重置第三方库组件样式的3种情况：
 
@@ -354,7 +354,7 @@ src / App.vue
 import { useRoute } from 'vue-router';
 import TabBar from './components/tab-bar/TabBar.vue';
 
-const route = useRoute()
+const route = useRoute() // 返回的 route 对象是响应式的，可直接在 template 中使用。
 </script>
 
 <template>
