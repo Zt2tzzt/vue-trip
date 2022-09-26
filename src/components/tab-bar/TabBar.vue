@@ -12,6 +12,7 @@ const currentIndex = ref(0)
 		<van-tabbar v-model="currentIndex" :active-color="PRIMARY_COLOR">
 			<template v-for="(item, index) of tabBarData" :key="item.text">
 				<van-tabbar-item icon="home-o" :to="item.path">
+					<!-- icon 插槽 -->
 					<template #icon="props">
 						<img
 							:src="getAssetURL(props.active ? item.imageActive : item.image)"

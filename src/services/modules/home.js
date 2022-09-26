@@ -21,3 +21,17 @@ export const getHomeCategories = () => {
 		url: '/home/categories'
 	})
 }
+
+/**
+ * @description: 此函数用于：获取 Home 中的内容，即房屋列表数据
+ * @Author: ZeT1an
+ * @return {Promise} 返回一个 Promise，用于处理请求结果。
+ */
+export const getHouseList = (page) => {
+	return ztRequest.get({
+		url: 'home/houselist',
+		params: {
+			page
+		}
+	})
+}

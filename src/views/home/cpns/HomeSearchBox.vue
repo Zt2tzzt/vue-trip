@@ -39,11 +39,9 @@ tomorrow.setDate(tomorrow.getDate() + 1)
 const startDate = ref(today) // 默认为今天
 const endDate = ref(tomorrow) // 默认为明天
 const gapOfDate = computed(() => getGapOfDate(startDate.value, endDate.value))
+const startDateStr = computed(() => formartMonthDay(startDate.value))
+const endDateStr = computed(() => formartMonthDay(endDate.value))
 const showCalendar = ref(false) // 记录日期是否展示的状态
-const onDateRangeClick = () => {
-	// 日期区域点击
-	showCalendar.value = true
-}
 const onCalendarConfirm = values => {
 	// 日历确认
 	const [start, end] = values
@@ -53,6 +51,17 @@ const onCalendarConfirm = values => {
 }
 // 热门建议
 const { hotSuggests } = storeToRefs(homeStore)
+// 开始搜索按钮
+const searchBtnClick = () => {
+	router.push({
+		path: '/search',
+		query: {
+			startDateStr: startDateStr.value,
+			endDateStr: endDateStr.value,
+			currentCity: currentCity.value.cityName
+		}
+	})
+}
 </script>
 
 <template>
@@ -66,15 +75,15 @@ const { hotSuggests } = storeToRefs(homeStore)
 			</div>
 		</section>
 		<!-- 日期区域 -->
-		<section class="section date-range" @click="onDateRangeClick">
+		<section class="section date-range" @click="showCalendar = true">
 			<div class="date">
 				<span class="tip">入住</span>
-				<span class="time">{{ formartMonthDay(startDate) }}</span>
+				<span class="time">{{ startDateStr }}</span>
 			</div>
 			<div class="stay">共{{ gapOfDate }}晚</div>
 			<div class="date">
 				<span class="tip">离店</span
-				><span class="time">{{ formartMonthDay(endDate) }}</span>
+				><span class="time">{{ endDateStr }}</span>
 			</div>
 		</section>
 		<!-- 日历 -->
@@ -87,14 +96,16 @@ const { hotSuggests } = storeToRefs(homeStore)
 			@confirm="onCalendarConfirm"
 		/>
 		<!-- 价格/人数选择 -->
-		<div class="section price-counter bottom-gray-line">
+		<section class="section price-counter bottom-gray-line">
 			<div class="start">价格不限</div>
 			<div class="end">人数不限</div>
-		</div>
+		</section>
 		<!-- 关键字 -->
-		<div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
+		<section class="section keyword bottom-gray-line">
+			关键字/位置/民宿名
+		</section>
 		<!-- 热门建议 -->
-		<div class="section hot-suggests">
+		<section class="section hot-suggests">
 			<template v-for="(item, index) in hotSuggests" :key="index">
 				<div
 					class="item"
@@ -106,7 +117,10 @@ const { hotSuggests } = storeToRefs(homeStore)
 					{{ item.tagText.text }}
 				</div>
 			</template>
-		</div>
+		</section>
+		<section class="section search-btn">
+			<div class="btn" @click="searchBtnClick">开始搜索</div>
+		</section>
 	</div>
 </template>
 
@@ -195,12 +209,28 @@ const { hotSuggests } = storeToRefs(homeStore)
 }
 .hot-suggests {
 	margin: 10px 0;
+	height: auto;
 	.item {
 		padding: 4px 8px;
 		margin: 4px;
 		border-radius: 14px;
 		font-size: 12px;
 		line-height: 1;
+	}
+}
+
+.search-btn {
+	.btn {
+		width: 342px;
+		height: 38px;
+		max-height: 50px;
+		border-radius: 20px;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 38px;
+		text-align: center;
+		color: #fff;
+		background-image: var(--theme-linear-gradient);
 	}
 }
 </style>

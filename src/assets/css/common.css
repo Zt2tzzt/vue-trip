@@ -6,6 +6,9 @@
 
   /* 灰色分割线颜色 */
   --line-color: #faf8f9;
+
+  /* 用于按钮的渐变颜色  */
+  --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f)
 }
 
 body {

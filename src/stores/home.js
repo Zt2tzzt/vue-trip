@@ -1,10 +1,12 @@
-import { getHomeCategories, getHomeHotSuggests } from "@/services";
+import { getHomeCategories, getHomeHotSuggests, getHouseList } from "@/services";
 import { defineStore } from "pinia";
 
 export const useHomeStore = defineStore('home', {
 	state: () => ({
 		hotSuggests: [],
-		categories: []
+		categories: [],
+		currentPage: 1, // 当前页数
+		houseList: []
 	}),
 	actions: {
 		fetchHotSuggestData() {
@@ -14,8 +16,13 @@ export const useHomeStore = defineStore('home', {
 		},
 		fetchCategories() {
 			getHomeCategories().then(res => {
-				console.log('---cate res---', res)
 				this.categories = res.data
+			})
+		},
+		fetchHouseList() {
+			getHouseList(this.currentPage++).then(res => {
+				// this.houseList = this.houseList.concat(res.data)
+				this.houseList.push(...res.data)
 			})
 		}
 	}

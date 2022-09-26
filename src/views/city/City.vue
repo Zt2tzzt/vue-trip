@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { PRIMARY_COLOR } from '@/constant'
 import { useCityStore } from '@/stores'
@@ -18,7 +18,6 @@ const onCancel = () => {
 const tabActiveKey = ref(0) // 记录激活的 tab 索引
 cityStore.fetchAllCities()
 const { allCities } = storeToRefs(cityStore)
-const currentGroup = computed(() => allCities.value[tabActiveKey.value]) // 当前选中的 tab，对应要展示的数据。
 </script>
 
 <template>

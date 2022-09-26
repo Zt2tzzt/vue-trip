@@ -2,10 +2,13 @@
 import HomeNavBar from './cpns/HomeNavBar.vue';
 import HomeSearchBox from './cpns/HomeSearchBox.vue';
 import { useHomeStore } from '@/stores'
+import Homecategory from './cpns/Homecategory.vue';
+import HomeContent from './cpns/HomeContent.vue';
 
 const homeStory = useHomeStore()
 homeStory.fetchHotSuggestData()
 homeStory.fetchCategories()
+homeStory.fetchHouseList()
 </script>
 
 <template>
@@ -18,7 +21,10 @@ homeStory.fetchCategories()
 		</section>
 		<!-- 搜索区域 -->
 		<HomeSearchBox />
-		
+		<!-- Category 区域 -->
+		<Homecategory />
+		<!-- Content 区域 -->
+		<HomeContent />
 	</div>
 </template>
 
