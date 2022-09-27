@@ -20,7 +20,7 @@ export const useHomeStore = defineStore('home', {
 			})
 		},
 		fetchHouseList() {
-			getHouseList(this.currentPage++).then(res => {
+			return getHouseList(this.currentPage++).then(res => {
 				// this.houseList = this.houseList.concat(res.data)
 				this.houseList.push(...res.data)
 			})

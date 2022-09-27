@@ -6,8 +6,8 @@ import dayjs from "dayjs";
  * @param {Date} date
  * @return {String} 日期字符串
  */
-export const formartMonthDay = (date) => {
-	return dayjs(date).format('MM月DD日')
+export const formatMonthDay = (date, pattern = "MM月DD日") => {
+	return dayjs(date).format(pattern)
 }
 
 /**

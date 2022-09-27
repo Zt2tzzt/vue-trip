@@ -208,7 +208,7 @@ import dayjs from "dayjs";
  * @param {Date} date
  * @return {String} 日期字符串
  */
-export const formartMonthDay = (date) => {
+export const formatMonthDay = (date) => {
 	return dayjs(date).format('MM月DD日')
 }
 

@@ -3,10 +3,12 @@ import { useCityStore, useHomeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { formartMonthDay, getGapOfDate } from '@/utils'
+import { formatMonthDay, getGapOfDate } from '@/utils'
 import { PRIMARY_COLOR } from '@/constant'
+import { useMainStore } from '@/stores/modules/main'
 
 const router = useRouter()
+const mainStore = useMainStore()
 const cityStore = useCityStore()
 const homeStore = useHomeStore()
 
@@ -32,15 +34,11 @@ const onPositionClick = () => {
 		}
 	)
 }
+const { startDate, endDate } = storeToRefs(mainStore)
 // 滞留时间
-const today = new Date()
-const tomorrow = new Date()
-tomorrow.setDate(tomorrow.getDate() + 1)
-const startDate = ref(today) // 默认为今天
-const endDate = ref(tomorrow) // 默认为明天
 const gapOfDate = computed(() => getGapOfDate(startDate.value, endDate.value))
-const startDateStr = computed(() => formartMonthDay(startDate.value))
-const endDateStr = computed(() => formartMonthDay(endDate.value))
+const startDateStr = computed(() => formatMonthDay(startDate.value))
+const endDateStr = computed(() => formatMonthDay(endDate.value))
 const showCalendar = ref(false) // 记录日期是否展示的状态
 const onCalendarConfirm = values => {
 	// 日历确认
@@ -52,7 +50,7 @@ const onCalendarConfirm = values => {
 // 热门建议
 const { hotSuggests } = storeToRefs(homeStore)
 // 开始搜索按钮
-const searchBtnClick = () => {
+const onSearchBtnClick = () => {
 	router.push({
 		path: '/search',
 		query: {
@@ -119,7 +117,7 @@ const searchBtnClick = () => {
 			</template>
 		</section>
 		<section class="section search-btn">
-			<div class="btn" @click="searchBtnClick">开始搜索</div>
+			<div class="btn" @click="onSearchBtnClick">开始搜索</div>
 		</section>
 	</div>
 </template>

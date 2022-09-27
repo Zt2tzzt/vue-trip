@@ -5,6 +5,7 @@ import { BASE_URL, TIME_OUT } from './request/configjs'
 export default new ZTRequest({
 	baseURL: BASE_URL,
 	timeout: TIME_OUT,
+	showLoading: true,
 	interceptor: {
 		requestInterceptor(config) {
 			// 携带token的拦截

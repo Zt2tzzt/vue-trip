@@ -2,5 +2,6 @@ import { createPinia } from "pinia";
 
 const pinia = createPinia()
 export default pinia
-export * from './city'
-export * from './home'
+export * from './modules/city'
+export * from './modules/home'
+export * from './modules/main'

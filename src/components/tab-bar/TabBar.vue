@@ -9,7 +9,7 @@ const currentIndex = ref(0)
 
 <template>
 	<footer class="tab-bar">
-		<van-tabbar v-model="currentIndex" :active-color="PRIMARY_COLOR">
+		<van-tabbar v-model="currentIndex" :active-color="PRIMARY_COLOR" route>
 			<template v-for="(item, index) of tabBarData" :key="item.text">
 				<van-tabbar-item icon="home-o" :to="item.path">
 					<!-- icon 插槽 -->

@@ -4,18 +4,22 @@
  * 2. 发送请求代码，存在很多相同的逻辑。
  */
 import axios from 'axios'
+import { Toast } from 'vant';
 
 class ZTRequest {
 	instance = null
 	interceptors = null
+	showLoading = true
+	loadingInstance = null
 
 	constructor(config) {
 		// 创建axios实例
 		this.instance = axios.create(config)
-
+		if (config.showLoading === false) {
+			this.showLoading = false
+		}
 		// 保存基本信息
 		this.interceptors = config.interceptor
-
 		// 使用拦截器（单个实例拦截器）
 		this.instance.interceptors.request.use(
 			this.interceptors?.requestInterceptor,
@@ -25,27 +29,29 @@ class ZTRequest {
 			this.interceptors?.responseInterceptor,
 			this.interceptors?.responseInterceptorCatch
 		)
-
 		// 使用拦截器（全局拦截器）
 		this.instance.interceptors.request.use(
 			config => {
-				// console.log('全局拦截，请求成功')
+				if (this.showLoading) {
+					this.loadingInstance = Toast.loading({
+						message: '加载中...',
+						forbidClick: true
+					})
+				}
 				return config
 			},
 			err => {
-				// console.log('全局拦截，请求失败')
 				return err
 			}
 		)
 		this.instance.interceptors.response.use(
 			res => {
-				// console.log('全局拦截，响应成功')
+				this.loadingInstance?.clear()
 				const data = res.data
 				return data
 			},
 			err => {
-				// console.log('全局拦截，响应失败')
-				// 关闭loading动画
+				this.loadingInstance?.clear()
 				return err
 			}
 		)
@@ -54,22 +60,28 @@ class ZTRequest {
 	// 封装request方法
 	request(config) {
 		return new Promise((resolve, reject) => {
-			// 1.单个请求对请求config的处理
+			// 1.单个请求对请求 config 的处理
 			if (config.interceptor?.requestInterceptor) {
 				config = config.interceptor.requestInterceptor(config)
+			}
+			if (config.showLoading === false) {
+				this.showLoading = false
 			}
 
 			this.instance
 				.request(config)
-				// then方法中res，是经过全局拦截器处理后的数据，仅保留了data，所以类型不是AxiosResponse，所以在type中，responseInterceptor类型要调整。
 				.then(res => {
-					// 单个请求对数据的处理
+					console.log('---请求成功---')
+					// 单个请求对 res 的处理
 					if (config.interceptor?.responseInterceptor) {
 						res = config.interceptor.responseInterceptor(res)
 					}
+					this.showLoading = true // showLoading 还原，不影响下一个请求
 					resolve(res)
 				})
 				.catch(err => {
+					console.log('---请求失败---', err)
+					this.showLoading = true // showLoading 还原，不影响下一个请求
 					reject(err)
 				})
 		})

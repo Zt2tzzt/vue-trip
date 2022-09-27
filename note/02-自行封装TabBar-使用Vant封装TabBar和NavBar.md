@@ -158,11 +158,23 @@ const currentIndex = ref(0)
 </style>
 ```
 
-# 重置样式，3种情况
+# 重置样式，3种情况（重点）
 
 重置第三方库组件样式的3种情况：
 
 - 重写样式前，先看下第三方组件有没有提供对应的属性或插槽，以支持自定义的设置。
+
+  - 比图使用插槽后，插入自己的元素，然后再自己的作用域中直接修改该元素。
+
+  ```less
+  .tab-bar {
+    img {
+      height: 30px;
+    }
+  }
+  ```
+
+  
 
 - 重写样式情况一：如果在第三方组件中，要重置的样式应用了 css 变量值，那么可以重写对应的 css 变量值，
   - 在全局重写，如；
@@ -186,9 +198,11 @@ const currentIndex = ref(0)
   - 使用 Vue 中的特殊语法 `:deep()`，找到子组件的类选择器，并重写样式：
 
   ```css
-  /* :deep(.class) 找到子组件的类, 让子组件的类重写生效 */
-  :deep(.van-tabbar-item__icon) {
-  	font-size: 50px;
+  .tab-ar {
+    /* :deep(.class) 找到子组件的类, 让子组件的类重写生效 */
+    :deep(.van-tabbar-item__icon) {
+      font-size: 50px;
+    }
   }
   ```
 
@@ -327,7 +341,21 @@ const positionClick = () => { // 获取地理位置信息
 </style>
 ```
 
-## 隐藏 TabBar 的2种方案。
+## 一个页面的数据请求和管理有哪些方式？各有什么特点（重点）
+
+方式一：保存在页面中
+
+* 缺点:
+
+  * 1.如果网络请求太多, 那么页面组件中就包含大量的对于网络请求和数据的处理逻辑
+
+  * 2.如果页面封装了很多的子组件, 子组件需要这些数据, 我们必须一步步将数据传递过去(props)
+
+方式二：保存在 store 中
+
+* 如 city.vue 一个页面---对应 stores / modules / city.js 一个 cityStore --- 对应 services / modules / city.js，对于 city 的所有网络请求   , 这种**分层架构结构**清晰,  分工明确,效率高
+
+## 隐藏 TabBar 的2种方案（重点）
 
 方案一：配置路由的 meta 属性；
 
@@ -365,7 +393,7 @@ const route = useRoute() // 返回的 route 对象是响应式的，可直接在
 </template>
 ```
 
-方案二：抽取隐藏 TabBar 的样式。
+方案二：抽取隐藏 TabBar 的样式，并在组件上应用样式。
 
 src \ assets \ css \ common.css
 
