@@ -104,7 +104,7 @@ const onSearchBtnClick = () => {
 		</section>
 		<!-- 热门建议 -->
 		<section class="section hot-suggests">
-			<template v-for="(item, index) in hotSuggests" :key="index">
+			<template v-for="item in hotSuggests" :key="index">
 				<div
 					class="item"
 					:style="{
@@ -116,6 +116,7 @@ const onSearchBtnClick = () => {
 				</div>
 			</template>
 		</section>
+		<!-- 搜索按钮 -->
 		<section class="section search-btn">
 			<div class="btn" @click="onSearchBtnClick">开始搜索</div>
 		</section>

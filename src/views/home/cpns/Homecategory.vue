@@ -22,7 +22,7 @@ const homeStory = useHomeStore()
 	height: 80px;
 	padding: 0 10px;
 	margin-top: 8px;
-	&::-webkit-scrollbar {
+	&::-webkit-scrollbar { // 消除滚动条
 		display: none;
 	}
 	.item {

@@ -2,13 +2,13 @@
 
 使用 Vant 封装 City 组件顶部搜索框组件和 Tabs 组件。
 
-## 给头部（以上2个部分）做固定定位，2种方案。
+## 给头部（以上2个部分）做固定定位，2种方案（重要）
 
 - 头部 fixed 定位；为下方滚动区域设置 margin，
 
   - 弊端：滚动条会出现在最上面，不推荐；
 
-- 下方滚动区域给固定高度（推荐）。
+- 下方滚动区域给固定高度，并进行纵向区域隐藏（推荐）。
 
   ```css
   .top {
@@ -208,8 +208,8 @@ import dayjs from "dayjs";
  * @param {Date} date
  * @return {String} 日期字符串
  */
-export const formatMonthDay = (date) => {
-	return dayjs(date).format('MM月DD日')
+export const formatMonthDay = (date, pattern = "MM月DD日") => {
+	return dayjs(date).format(pattern)
 }
 
 /**

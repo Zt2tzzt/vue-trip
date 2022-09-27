@@ -11,8 +11,8 @@ import SearchBar from '@/components/search-bar/SearchBar.vue'
 const homeStory = useHomeStore()
 homeStory.fetchHotSuggestData()
 homeStory.fetchCategories()
-homeStory.fetchHouseList()
-// 上拉加载更多
+homeStory.fetchHouseList() // 获取 Content 中的内容
+// 上拉加载更多，增加 Content 中的内容
 const { isReachBottom, scrollTopRef } = useScroll()
 watch(isReachBottom, newValue => {
 	if (newValue) {
@@ -21,6 +21,7 @@ watch(isReachBottom, newValue => {
 		})
 	}
 })
+// 是否展示搜索框
 const isShowSearchBar = computed(() => scrollTopRef.value >= 360)
 </script>
 
@@ -40,7 +41,6 @@ const isShowSearchBar = computed(() => scrollTopRef.value >= 360)
 		<Homecategory />
 		<!-- Content 区域 -->
 		<HomeContent />
-		<button @click="homeStory.fetchHouseList()">加载更多</button>
 	</div>
 </template>
 
