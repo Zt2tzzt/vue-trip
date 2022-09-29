@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { PRIMARY_COLOR } from '@/constant';
-import { useCityStore } from '@/stores';
+import useCityStore from '@/stores/modules/city';
 import { useRouter } from 'vue-router';
 
 const props = defineProps({

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { PRIMARY_COLOR } from '@/constant'
-import { useCityStore } from '@/stores'
+import useCityStore from '@/stores/modules/city'
 import { storeToRefs } from 'pinia'
 import CityGroup from './cpns/CityGroup.vue'
 
@@ -34,7 +34,7 @@ const { allCities } = storeToRefs(cityStore)
 			<!-- tab 栏 -->
 			<van-tabs v-model:active="tabActiveKey" :color="PRIMARY_COLOR">
 				<template v-for="(value, key) in allCities" :key="key">
-					<van-tab :title="value.title" :name="key"></van-tab> <!-- name 属性用于修改 van-tabs 绑定的索引为 key-->
+					<van-tab :title="value.title" :name="key"></van-tab> <!-- name 属性用于修改 van-tabs 双向绑定 active 的值为 key-->
 				</template>
 			</van-tabs>
 		</header>

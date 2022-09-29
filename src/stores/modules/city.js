@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { getAllCities } from "@/services";
 
-export const useCityStore = defineStore('city', {
+export default defineStore('city', {
 	state: () => ({
 		allCities: [],
 		currentCity: {

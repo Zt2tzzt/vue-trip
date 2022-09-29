@@ -1,9 +1,15 @@
 <script setup>
-import { useHomeStore } from '@/stores';
-import HouseItemV3 from '@/components/house-item-v3/HouseItemV3.vue';
-import HouseItemV9 from '@/components/house-item-v9/HouseItemV9.vue';
+import useHomeStore from '@/stores/modules/home'
+import HouseItemV3 from '@/components/house-item-v3/HouseItemV3.vue'
+import HouseItemV9 from '@/components/house-item-v9/HouseItemV9.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const homeStore = useHomeStore()
+
+const onItemClick = houseId => {
+	router.push(`/detail/` + houseId)
+}
 </script>
 
 <template>
@@ -11,8 +17,16 @@ const homeStore = useHomeStore()
 		<div class="title">热门精选</div>
 		<div class="list">
 			<template v-for="item of homeStore.houseList" :key="item.data.houseId">
-				<HouseItemV3 v-if="item.discoveryContentType === 3" :itemData="item.data" />
-				<HouseItemV9 v-else-if="item.discoveryContentType === 9" :itemData="item.data" />
+				<HouseItemV3
+					v-if="item.discoveryContentType === 3"
+					:itemData="item.data"
+					@click="onItemClick(item.data.houseId)"
+				/>
+				<HouseItemV9
+					v-else-if="item.discoveryContentType === 9"
+					:itemData="item.data"
+					@click="onItemClick(item.data.houseId)"
+				/>
 			</template>
 		</div>
 	</div>

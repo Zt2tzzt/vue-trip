@@ -4,13 +4,13 @@
  * 2. 发送请求代码，存在很多相同的逻辑。
  */
 import axios from 'axios'
-import { Toast } from 'vant';
+import useMainStore from '@/stores/modules/main'
 
+const mainStore = useMainStore()
 class ZTRequest {
 	instance = null
 	interceptors = null
 	showLoading = true
-	loadingInstance = null
 
 	constructor(config) {
 		// 创建axios实例
@@ -33,10 +33,7 @@ class ZTRequest {
 		this.instance.interceptors.request.use(
 			config => {
 				if (this.showLoading) {
-					this.loadingInstance = Toast.loading({
-						message: '加载中...',
-						forbidClick: true
-					})
+					mainStore.isLoading = true
 				}
 				return config
 			},
@@ -46,12 +43,12 @@ class ZTRequest {
 		)
 		this.instance.interceptors.response.use(
 			res => {
-				this.loadingInstance?.clear()
 				const data = res.data
+				mainStore.isLoading = false
 				return data
 			},
 			err => {
-				this.loadingInstance?.clear()
+				mainStore.isLoading = false
 				return err
 			}
 		)

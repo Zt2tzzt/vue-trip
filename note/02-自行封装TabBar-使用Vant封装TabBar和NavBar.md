@@ -81,10 +81,12 @@ const handleTabBarClick = index => {
 
 # 上手 Vant UI 库
 
+参考 [Vant 文档](https://vant-contrib.gitee.io/vant/v4/#/zh-CN)
+
 1. 安装 Vant UI 库，
 
    ```shell
-   # Vue 3 项目，安装最新版 Vant
+   # 安装最新版 Vant
    npm i vant
    ```
 
@@ -114,8 +116,6 @@ const handleTabBarClick = index => {
    ```
 
 4. 重启项目。
-
-[Vant 文档](https://vant-contrib.gitee.io/vant/v4/#/zh-CN)
 
 # 使用 Vant UI 库，封装 TabBar
 
@@ -164,7 +164,7 @@ const currentIndex = ref(0)
 
 - 重写样式前，先看下第三方组件有没有提供对应的属性或插槽，以支持自定义的设置。
 
-  - 比图使用插槽后，插入自己的元素，然后再自己的作用域中直接修改该元素。
+  - 比图使用插槽后，插入自己的元素，然后在自己的作用域中直接修改该元素。
 
   ```less
   .tab-bar {
@@ -353,7 +353,8 @@ const positionClick = () => { // 获取地理位置信息
 
 方式二：保存在 store 中
 
-* 如 city.vue 一个页面---对应 stores / modules / city.js 一个 cityStore --- 对应 services / modules / city.js，对于 city 的所有网络请求   , 这种**分层架构结构**清晰,  分工明确,效率高
+* 如 city.vue 一个页面，对应 stores / modules / city.js 一个 cityStore ，对应 services / modules / city.js
+* 对于 city 的所有网络请求, 这种**分层架构**结构清晰, 分工明确，效率高。
 
 ## 隐藏 TabBar 的2种方案（重点）
 

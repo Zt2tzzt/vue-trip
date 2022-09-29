@@ -26,16 +26,17 @@ const router = createRouter({
     {
       path: '/city',
       component: () => import('@/views/city/City.vue'),
-      meta: {
-        hiddeTabBar: true
-      }
+      meta: { hiddeTabBar: true }
     },
     {
       path: '/search',
       component: () => import('@/views/search/Search.vue'),
-      meta: {
-        hiddeTabBar: true
-      }
+      meta: { hiddeTabBar: true }
+    },
+    {
+      path: '/detail/:id',
+      component: () => import('@/views/detail/Detail.vue'),
+      meta: { hiddeTabBar: true }
     }
   ]
 })

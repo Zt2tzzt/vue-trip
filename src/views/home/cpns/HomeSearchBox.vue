@@ -1,11 +1,12 @@
 <script setup>
-import { useCityStore, useHomeStore } from '@/stores'
+import useCityStore from '@/stores/modules/city'
+import useHomeStore from '@/stores/modules/home'
+import useMainStore from '@/stores/modules/main'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatMonthDay, getGapOfDate } from '@/utils'
 import { PRIMARY_COLOR } from '@/constant'
-import { useMainStore } from '@/stores/modules/main'
 
 const router = useRouter()
 const mainStore = useMainStore()
@@ -104,7 +105,7 @@ const onSearchBtnClick = () => {
 		</section>
 		<!-- 热门建议 -->
 		<section class="section hot-suggests">
-			<template v-for="item in hotSuggests" :key="index">
+			<template v-for="item in hotSuggests" :key="item.tagText.text">
 				<div
 					class="item"
 					:style="{

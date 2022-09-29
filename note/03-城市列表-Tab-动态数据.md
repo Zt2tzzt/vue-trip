@@ -1,8 +1,76 @@
-# City 组件顶部搜索和 Tab 封装
+# City 组件开发
 
 使用 Vant 封装 City 组件顶部搜索框组件和 Tabs 组件。
 
-## 给头部（以上2个部分）做固定定位，2种方案（重要）
+src \ views \ city \ City.vue
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { PRIMARY_COLOR } from '@/constant'
+import useCityStore from '@/stores/modules/city'
+import { storeToRefs } from 'pinia'
+import CityGroup from './cpns/CityGroup.vue'
+
+const router = useRouter()
+const cityStore = useCityStore()
+
+// 顶部搜索栏
+const searchValue = ref('') // 记录搜索框的输入值
+const onCancel = () => {
+	router.back()
+}
+// tab 栏
+const tabActiveKey = ref(0) // 记录激活的 tab 索引
+cityStore.fetchAllCities()
+const { allCities } = storeToRefs(cityStore)
+</script>
+
+<template>
+	<div class="city">
+		<!-- 顶部固定部分 -->
+		<header class="top">
+			<!-- 顶部搜索栏 -->
+			<van-search
+				v-model="searchValue"
+				placeholder="城市/区域/位置"
+				:show-action="true"
+				@cancel="onCancel"
+			/>
+			<!-- tab 栏 -->
+			<van-tabs v-model:active="tabActiveKey" :color="PRIMARY_COLOR">
+				<template v-for="(value, key) in allCities" :key="key">
+					<van-tab :title="value.title" :name="key"></van-tab> <!-- name 属性用于修改 van-tabs 绑定的索引为 key-->
+				</template>
+			</van-tabs>
+		</header>
+		<!-- 内容部分 -->
+		<section class="content">
+			<template v-for="(value, key) in allCities">
+				<CityGroup v-show="tabActiveKey === key" :groupsData="value" />
+			</template>
+		</section>
+	</div>
+</template>
+
+<style scoped lang="less">
+	.top {
+		position: relative; // Vant 的 van-index-bar 组件中有绝对定位元素，覆盖了 top 区域，需要增加 top 区域的展示层级。
+		z-index: 9;
+	}
+	.content {
+		height: calc(100vh - 98px);
+		overflow-y: auto;
+	}
+</style>
+```
+
+
+
+# 给头部（以上搜索和 Tab 部分）做固定定位，2种方案（重要）
+
+给以上搜索和 Tab 部分做固定定位
 
 - 头部 fixed 定位；为下方滚动区域设置 margin，
 
@@ -188,8 +256,9 @@ export * from './modules/home'
 
 # CityGroup 组件的封装
 
-在 city 组件中抽取子组件，使得展示逻辑更加清晰。使用 Vant 的 IndexBar 组件进行封装。
-点击城市，返回 Home，并展示选择的城市。
+在 city 组件中抽取子组件，使得展示逻辑更加清晰。
+
+使用 Vant 的 VantIndexBar 组件进行封装。点击城市，返回 Home，并展示选择的城市。
 
 # HomeSearchBox 组件的封装
 

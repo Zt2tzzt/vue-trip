@@ -1,7 +1,7 @@
 <script setup>
 import HomeNavBar from './cpns/HomeNavBar.vue'
 import HomeSearchBox from './cpns/HomeSearchBox.vue'
-import { useHomeStore } from '@/stores'
+import useHomeStore from '@/stores/modules/home'
 import Homecategory from './cpns/Homecategory.vue'
 import HomeContent from './cpns/HomeContent.vue'
 import { useScroll } from '@/hooks'
@@ -9,6 +9,7 @@ import { computed, watch } from 'vue'
 import SearchBar from '@/components/search-bar/SearchBar.vue'
 
 const homeStory = useHomeStore()
+
 homeStory.fetchHotSuggestData()
 homeStory.fetchCategories()
 homeStory.fetchHouseList() // 获取 Content 中的内容

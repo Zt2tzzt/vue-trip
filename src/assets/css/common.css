@@ -8,7 +8,10 @@
   --line-color: #faf8f9;
 
   /* 用于按钮的渐变颜色  */
-  --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f)
+  --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
+
+  /* 重写 vant 中的主题色 */
+  --van-primary-color: var(--primary-color)
 }
 
 body {
