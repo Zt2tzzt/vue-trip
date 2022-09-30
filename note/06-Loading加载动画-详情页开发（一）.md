@@ -8,7 +8,7 @@
 >
 > `export * from './modules/main'`
 >
-> 导入函数时，最好单独导入，如：
+> 导入生成 store 的函数时，最好单独导入，如：
 >
 > `import useMainStore from '@/stores/modules/main'`
 
@@ -130,6 +130,7 @@ import { useRouter } from 'vue-router'
 
 const homeStore = useHomeStore()
 const router = useRouter()
+
 const onItemClick = houseId => {
 	router.push(`/detail/` + houseId)
 }
@@ -229,9 +230,9 @@ const onClickLeft = () => {
 <style scoped lang="less"></style>
 ```
 
-# 开发 DetailSwiper 组件
+# 开发 DetailSwiper 组件（难点）
 
-在 Detai 中，开发 DetailSwiper 组件。指示器使用插槽自定义。
+在 Detai 中，开发 DetailSwiper 组件。指示器使用插槽自定义（难点）。
 
 ```vue
 <script setup>
