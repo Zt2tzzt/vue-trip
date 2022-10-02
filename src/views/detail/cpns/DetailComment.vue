@@ -1,3 +1,14 @@
+<script setup>
+import DetailSection from '@/components/detail-section/DetailSection.vue'
+
+defineProps({
+	comment: {
+		type: Object,
+		default: () => ({})
+	}
+})
+</script>
+
 <template>
 	<div class="comment">
 		<detail-section
@@ -59,17 +70,6 @@
 		</detail-section>
 	</div>
 </template>
-
-<script setup>
-import DetailSection from '@/components/detail-section/DetailSection.vue'
-
-defineProps({
-	comment: {
-		type: Object,
-		default: () => ({})
-	}
-})
-</script>
 
 <style lang="less" scoped>
 .comment-inner {

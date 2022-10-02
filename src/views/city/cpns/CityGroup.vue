@@ -15,6 +15,7 @@ const router = useRouter()
 
 // 为 van-index-bar 组件动态添加索引
 const indexList = computed(() => ['#'].concat(props.groupsData.cities.map(item => item.group)))
+
 // 选择城市
 const onCityClick = (city) => {
 	cityStore.currentCity = city // 选中当前城市

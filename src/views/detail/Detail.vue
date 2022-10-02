@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { getDeailInfos } from '@/services'
-import { computed, onMounted, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import DetailSwiper from './cpns/DetailSwiper.vue'
 import DetailInfos from './cpns/DetailInfos.vue'
 import DetailFacility from './cpns/DetailFacility.vue'
@@ -10,7 +10,7 @@ import DetailComment from './cpns/DetailComment.vue'
 import DetailNotice from './cpns/DetailNotice.vue'
 import DetailMap from './cpns/DetailMap.vue'
 import DetailIntro from './cpns/DetailIntro.vue'
-import TabControl from '@/components/tab-control/TabControl.vue'
+import TabControl from '@/components/tab-control/TabControl2.vue'
 import useScroll from '@/hooks/useScroll'
 
 const route = useRoute()
@@ -18,54 +18,78 @@ const router = useRouter()
 
 // 发送请求，获取详情页数据，采用在页面内管理数据的模式。
 const detailInfos = ref({})
-const mainPart = computed(() => detailInfos.value.mainPart)
 getDeailInfos(route.params.id).then(res => {
 	detailInfos.value = res.data
 })
+const mainPart = computed(() => detailInfos.value.mainPart)
+
 // 返回按钮点击
 const onClickLeft = () => {
 	router.back()
 }
+
 // tabControl 相关操作
 const mainRef = ref(null) // 根元素对象
-const { scrollTopRef } = useScroll(mainRef) // 拿到滚动位置
-const showTabControl = computed(() => scrollTopRef.value >= 300) // 记录是否需要展示 TabControl
-const sectionEls = ref({})
+const { scrollTop, clientHeight, scrollHeight } = useScroll(mainRef) // 拿到滚动位置
+const showTabControl = computed(() => scrollTop.value >= 300) // 记录是否需要展示 TabControl
+const sectionEls = reactive({}) // 元素 name，与元素对象的映射
 const getSectionRef = value => {
 	// 用于获取到绑定组件，根元素上的 name 属性
-	const name = value?.$el.getAttribute('name')
-	if (name) sectionEls.value[name] = value.$el
+	if (!value) return
+	const name = value.$el.getAttribute('name')
+	sectionEls[name] = value.$el
 }
-const names = computed(() => Object.keys(sectionEls.value)) // 获取到 TabControl 的名称数组
+const names = computed(() => Object.keys(sectionEls)) // 获取到 TabControl 的名称数组
+// Tab 点击事件处理
+let isClick = false // 记录 Tab 是否被点击了
+let currentDistance = 0 // 记录当前滚动位置
 const onTabItemClick = index => {
 	const key = names.value[index]
-	const el = sectionEls.value[key]
+	const el = sectionEls[key]
 	let distance = el.offsetTop
 	if (index !== 0) {
-		distance -= (44 + 46)
+		distance -= 44 + 46
 	}
+	isClick = true
+	currentDistance = distance
 	mainRef.value.scrollTo({
 		top: distance,
 		behavior: 'smooth'
 	})
 }
+
+// 监听页面滚动，TabControl 做相应切换
+const tabIndex = ref(0)
+watch(scrollTop, newVal => {
+	if (!isClick) {
+		const isReachBottom = clientHeight.value + newVal >= scrollHeight.value
+		const index = Object.values(sectionEls)
+			.map(el => el.offsetTop)
+			.findIndex(topVal => topVal - 44 - 46 > newVal)
+		tabIndex.value = isReachBottom || index === -1 ? names.value.length - 1 : index - 1
+	} else if (currentDistance === newVal) {
+		isClick = false
+	}
+
+})
 </script>
 
 <template>
 	<div class="detail">
-		<!-- Tab 栏 -->
-		<TabControl
-			class="tab"
-			v-show="showTabControl"
-			:titles="names"
-			@tabItemClick="onTabItemClick"
-		/>
 		<!-- 导航栏 -->
 		<van-nav-bar
 			title="房屋详情"
 			left-text="返回"
 			left-arrow
 			@click-left="onClickLeft"
+		/>
+		<!-- Tab 栏 -->
+		<TabControl
+			class="tab"
+			v-if="showTabControl"
+			:titles="names"
+			:tabIndex="tabIndex"
+			@tabItemClick="onTabItemClick"
 		/>
 		<!-- 主题区域 -->
 		<div class="main" ref="mainRef">

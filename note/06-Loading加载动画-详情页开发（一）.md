@@ -234,6 +234,8 @@ const onClickLeft = () => {
 
 在 Detai 中，开发 DetailSwiper 组件。指示器使用插槽自定义（难点）。
 
+src \ views \ detail \ cpns \ DetailSwiper.vue
+
 ```vue
 <script setup>
 const props = defineProps({

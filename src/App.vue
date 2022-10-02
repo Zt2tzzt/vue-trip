@@ -8,7 +8,11 @@ const route = useRoute() // 返回的 route 对象，是响应式的，可以直
 
 <template>
 	<div class="app">
-		<router-view />
+		<router-view v-slot="{ Component }">
+			<keep-alive include="home">
+				<component :is="Component"></component>
+			</keep-alive>
+		</router-view>
 		<TabBar v-show="!route.meta.hiddeTabBar" />
 		<Loading />
 	</div>

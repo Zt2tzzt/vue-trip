@@ -18,9 +18,11 @@ const cityStore = useCityStore()
 
 // 顶部搜索栏
 const searchValue = ref('') // 记录搜索框的输入值
+// 点击取消按钮
 const onCancel = () => {
 	router.back()
 }
+
 // tab 栏
 const tabActiveKey = ref(0) // 记录激活的 tab 索引
 cityStore.fetchAllCities()
@@ -72,15 +74,13 @@ const { allCities } = storeToRefs(cityStore)
 
 给以上搜索和 Tab 部分做固定定位
 
-- 头部 fixed 定位；为下方滚动区域设置 margin，
-
-  - 弊端：滚动条会出现在最上面，不推荐；
+- 头部 fixed 定位；为下方滚动区域设置 margin，弊端：滚动条会出现在最上面，不推荐；
 
 - 下方滚动区域给固定高度，并进行纵向区域隐藏（推荐）。
 
   ```css
   .top {
-    position: relative; /* Vant 的 van-index-bar 组件中有绝对定位元素，覆盖了 top 区域，需要增加 top 区域的展示层级。*/
+    position: relative; /* CityGroup 组件中 Vant 的 van-index-bar 组件中有绝对定位元素，覆盖了 top 区域，需要增加 top 区域的展示层级。*/
     z-index: 9;
   }
   .content {
@@ -258,7 +258,9 @@ export * from './modules/home'
 
 在 city 组件中抽取子组件，使得展示逻辑更加清晰。
 
-使用 Vant 的 VantIndexBar 组件进行封装。点击城市，返回 Home，并展示选择的城市。
+使用 Vant 的 VantIndexBar 组件进行封装。
+
+点击城市，返回 Home，并展示选择的城市。
 
 # HomeSearchBox 组件的封装
 

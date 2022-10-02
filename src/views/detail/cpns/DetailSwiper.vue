@@ -18,9 +18,11 @@ const swiperGroup = props.swiperData.reduce((accumulate, current) => {
 	valueArr.push(current)
 	return accumulate
 }, {})
+
 //获取  title 名称转换
 const nameRegEx = /【(.*?)】/i
 const getName = (name) => nameRegEx.exec(name).at(1)
+
 // 获取当前图片所在目录的索引
 const getCategoryIndex = item => swiperGroup[item.enumPictureCategory].findIndex(iten => iten === item) + 1
 </script>

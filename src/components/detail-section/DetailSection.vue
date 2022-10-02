@@ -1,3 +1,16 @@
+<script setup>
+defineProps({
+	title: {
+		type: String,
+		default: '默认标题'
+	},
+	moreText: {
+		type: String,
+		default: ''
+	}
+})
+</script>
+
 <template>
 	<div class="section">
 		<div class="header">
@@ -14,19 +27,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-defineProps({
-	title: {
-		type: String,
-		default: '默认标题'
-	},
-	moreText: {
-		type: String,
-		default: ''
-	}
-})
-</script>
 
 <style lang="less" scoped>
 .section {
