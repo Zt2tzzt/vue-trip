@@ -1,14 +1,14 @@
 # 封装 Loading 组件
 
-为增加用户体验，点击蒙板，组件隐藏。
+为增加用户体验，点击蒙板，Loading 组件隐藏。
 
-在网络请求拦截器中，处理模板隐藏显示逻辑。
+在网络请求拦截器中，处理蒙板隐藏显示逻辑。
 
 > Pinia 中导出生成 store 的函数时，最好不要集中导出，如
 >
 > `export * from './modules/main'`
 >
-> 导入生成 store 的函数时，最好单独导入，如：
+> 导入生成 store 的函数时，最好作为默认导出对象单独导入，如：
 >
 > `import useMainStore from '@/stores/modules/main'`
 
@@ -93,21 +93,22 @@ this.instance.interceptors.response.use(
 // ...
 ```
 
-src \ App.vue
+src \ components \ loading \ Loading.vue
 
 ```vue
 <script setup>
-import TabBar from './components/tab-bar/TabBar.vue'
-import Loading from './components/loading/Loading.vue'
-import { useRoute } from 'vue-router'
+import useMainStore from '@/stores/modules/main';
 
-const route = useRoute() // 返回的 route 对象，是响应式的，可以直接在 template 中使用。
+const mainStore = useMainStore()
+// 用户点击时，隐藏组件，增加用户体验。
+const onLoadingClick = () => mainStore.isLoading = false
 </script>
+
 <template>
-	<div class="app">
-		<router-view />
-		<TabBar v-show="!route.meta.hiddeTabBar" />
-		<Loading />
+	<div class="loading" v-show="mainStore.isLoading" @click="onLoadingClick">
+		<div class="bg">
+			<img src="@/assets/img/home/full-screen-loading.gif" alt="">
+		</div>
 	</div>
 </template>
 ```
@@ -257,7 +258,7 @@ const swiperGroup = props.swiperData.reduce((accumulate, current) => {
 	valueArr.push(current)
 	return accumulate
 }, {})
-//获取  title 名称转换
+//获取 title 名称转换
 const nameRegEx = /【(.*?)】/i
 const getName = (name) => {
 	const res = nameRegEx.exec(name)

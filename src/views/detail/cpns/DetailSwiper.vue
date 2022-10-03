@@ -19,7 +19,7 @@ const swiperGroup = props.swiperData.reduce((accumulate, current) => {
 	return accumulate
 }, {})
 
-//获取  title 名称转换
+// 获取 title 名称转换
 const nameRegEx = /【(.*?)】/i
 const getName = (name) => nameRegEx.exec(name).at(1)
 

@@ -30,7 +30,7 @@ const onClickLeft = () => {
 
 // tabControl 相关操作
 const mainRef = ref(null) // 根元素对象
-const { scrollTop, clientHeight, scrollHeight } = useScroll(mainRef) // 拿到滚动位置
+const { scrollTop, isReachBottom } = useScroll(mainRef) // 拿到滚动位置
 const showTabControl = computed(() => scrollTop.value >= 300) // 记录是否需要展示 TabControl
 const sectionEls = reactive({}) // 元素 name，与元素对象的映射
 const getSectionRef = value => {
@@ -62,7 +62,6 @@ const onTabItemClick = index => {
 const tabIndex = ref(0)
 watch(scrollTop, newVal => {
 	if (!isClick) {
-		const isReachBottom = clientHeight.value + newVal >= scrollHeight.value
 		const index = Object.values(sectionEls)
 			.map(el => el.offsetTop)
 			.findIndex(topVal => topVal - 44 - 46 > newVal)
