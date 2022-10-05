@@ -7,6 +7,7 @@ import axios from 'axios'
 import useMainStore from '@/stores/modules/main'
 
 const mainStore = useMainStore()
+
 class ZTRequest {
 	instance = null
 	interceptors = null

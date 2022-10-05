@@ -14,15 +14,15 @@ const props = defineProps({
 })
 const emit = defineEmits(['tabItemClick'])
 
-const active = computed(() => props.tabIndex)
-const onClickTab = ({ name }) => {
-	emit('tabItemClick', name)
+const activeIndex = computed(() => props.tabIndex)
+const onClickTab = ({ name: index }) => {
+	emit('tabItemClick', index)
 }
 </script>
 
 <template>
 	<div class="tab-control">
-		<van-tabs v-model:active="active" :color="PRIMARY_COLOR" @click-tab="onClickTab">
+		<van-tabs v-model:active="activeIndex" :color="PRIMARY_COLOR" @click-tab="onClickTab">
 			<template v-for="item of titles" :key="item">
 				<van-tab :title="item"></van-tab>
 			</template>

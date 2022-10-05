@@ -62,10 +62,9 @@ const onTabItemClick = index => {
 const tabIndex = ref(0)
 watch(scrollTop, newVal => {
 	if (!isClick) {
-		const index = Object.values(sectionEls)
-			.map(el => el.offsetTop)
-			.findIndex(topVal => topVal - 44 - 46 > newVal)
-		tabIndex.value = isReachBottom || index === -1 ? names.value.length - 1 : index - 1
+		const els = Object.values(sectionEls)
+		const index = els.map(el => el.offsetTop).findIndex(topVal => topVal - 44 - 46 > newVal) - 1
+		tabIndex.value = isReachBottom || index === -1 ? els.length - 1 : index
 	} else if (currentDistance === newVal) {
 		isClick = false
 	}
@@ -96,36 +95,43 @@ watch(scrollTop, newVal => {
 				<!--- main 元素滚动时，里面的组件会刷新，使用 v-memo 指令，阻止频繁的刷新 -->
 				<!-- 轮播图 -->
 				<DetailSwiper :swiperData="mainPart.topModule.housePicture.housePics" />
+				<!-- 描述 -->
 				<DetailInfos
 					name="描述"
 					:ref="getSectionRef"
 					:topModule="mainPart.topModule"
 				/>
+				<!-- 设施 -->
 				<DetailFacility
 					name="设施"
 					:ref="getSectionRef"
 					:houseFacility="mainPart.dynamicModule.facilityModule.houseFacility"
 				/>
+				<!-- 房东 -->
 				<DetailLandlord
 					name="房东"
 					:ref="getSectionRef"
 					:landlord="mainPart.dynamicModule.landlordModule"
 				/>
+				<!-- 评论 -->
 				<DetailComment
 					name="评论"
 					:ref="getSectionRef"
 					:comment="mainPart.dynamicModule.commentModule"
 				/>
+				<!-- 须知 -->
 				<DetailNotice
 					name="须知"
 					:ref="getSectionRef"
 					:order-rules="mainPart.dynamicModule.rulesModule.orderRules"
 				/>
+				<!-- 周边 -->
 				<DetailMap
 					name="周边"
 					:ref="getSectionRef"
 					:position="mainPart.dynamicModule.positionModule"
 				/>
+				<!-- 介绍 -->
 				<DetailIntro :priceInfo="mainPart.introductionModule" />
 			</section>
 			<footer class="footer">
