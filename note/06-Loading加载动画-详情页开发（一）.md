@@ -93,26 +93,6 @@ this.instance.interceptors.response.use(
 // ...
 ```
 
-src \ components \ loading \ Loading.vue
-
-```vue
-<script setup>
-import useMainStore from '@/stores/modules/main';
-
-const mainStore = useMainStore()
-// 用户点击时，隐藏组件，增加用户体验。
-const onLoadingClick = () => mainStore.isLoading = false
-</script>
-
-<template>
-	<div class="loading" v-show="mainStore.isLoading" @click="onLoadingClick">
-		<div class="bg">
-			<img src="@/assets/img/home/full-screen-loading.gif" alt="">
-		</div>
-	</div>
-</template>
-```
-
 # 详情页开发，创建 Detail 组件
 
 跳转详情页，
@@ -330,6 +310,5 @@ const getCategoryIndex = item => {
 		}
   }
 }
-
 </style>
 ```
