@@ -109,7 +109,7 @@ const onTabBarClick = index => {
      plugins: [
        vue(),
        Components({
-         resolvers: [VantResolver()],
+         resolvers: [ VantResolver() ],
        }),
      ],
    };
@@ -173,8 +173,6 @@ const currentIndex = ref(0)
     }
   }
   ```
-
-  
 
 - 重写样式情况一：如果在第三方组件中，要重置的样式应用了 css 变量值，那么可以重写对应的 css 变量值，
   - 在全局重写，如；
@@ -401,8 +399,8 @@ src \ assets \ css \ common.css
   position: relative;
   z-index: 9;
   background-color: #fff;
-  /* height: 100vh;
-  overflow-y: auto; */
+  height: 100vh;
+  overflow-y: auto;
 }
 ```
 
