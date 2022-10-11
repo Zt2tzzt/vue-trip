@@ -74,15 +74,11 @@ const { allCities } = storeToRefs(cityStore)
 
 给以上搜索和 Tab 部分做固定定位
 
-- 头部 fixed 定位；为下方滚动区域设置 margin，弊端：滚动条会出现在最上面，不推荐；
+- 头部 fixed 定位；为下方滚动区域设置 margin-top，弊端：滚动条会出现在最上面，不推荐；
 
 - 下方滚动区域给固定高度，并进行纵向区域隐藏（推荐）。
 
   ```css
-  .top {
-    position: relative; /* CityGroup 组件中 Vant 的 van-index-bar 组件中有绝对定位元素，覆盖了 top 区域，需要增加 top 区域的展示层级。*/
-    z-index: 9;
-  }
   .content {
     height: calc(100vh - 98px);
     overflow-y: auto;
@@ -164,7 +160,6 @@ class ZTRequest {
 
 			this.instance
 				.request(config)
-				// then方法中res，是经过全局拦截器处理后的数据，仅保留了data，所以类型不是AxiosResponse，所以在type中，responseInterceptor类型要调整。
 				.then(res => {
 					// 单个请求对数据的处理
 					if (config.interceptor?.responseInterceptor) {
