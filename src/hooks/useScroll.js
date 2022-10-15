@@ -24,6 +24,8 @@ export default elRef => {
 			if (clientHeight + scrollTop >= scrollHeight) {
 				console.log('滚动到底部了')
 				isReachBottom.value = true
+			} else {
+				isReachBottom.value = false
 			}
 		},
 		100,
