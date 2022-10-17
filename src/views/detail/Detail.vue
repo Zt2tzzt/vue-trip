@@ -63,8 +63,8 @@ const tabIndex = ref(0)
 watch(scrollTop, newVal => {
 	if (!isClick) {
 		const els = Object.values(sectionEls)
-		const index = els.map(el => el.offsetTop).findIndex(topVal => topVal - 44 - 46 > newVal) - 1
-		tabIndex.value = isReachBottom.value || index === -1 ? els.length - 1 : index
+		const index = els.map(el => el.offsetTop).findIndex(topVal => topVal - 44 - 46 > newVal)
+		tabIndex.value = isReachBottom.value || index === -1 ? els.length - 1 : index - 1
 	} else if (currentDistance === newVal) {
 		isClick = false
 	}
