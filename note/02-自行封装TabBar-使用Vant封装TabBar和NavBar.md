@@ -192,11 +192,11 @@ const currentIndex = ref(0)
   ```
 
 - 重写样式情况二：重写对应的 css 属性，意味着需要在父组件中，拿到引用的第三方库的组件中的选择器，并重写该选择器对应的样式。有2种方案
-  - 去掉 style 元素上的 scoped，直接重写（不推荐）。
+  - 去掉 style 标签上的 `scoped`，直接重写（不推荐）。
   - 使用 Vue 中的特殊语法 `:deep()`，找到子组件的类选择器，并重写样式：
 
   ```css
-  .tab-ar {
+  .tab-bar {
     /* :deep(.class) 找到子组件的类, 让子组件的类重写生效 */
     :deep(.van-tabbar-item__icon) {
       font-size: 50px;
