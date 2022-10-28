@@ -35,6 +35,11 @@ const onPositionClick = () => {
 		}
 	)
 }
+
+const onDataRangeClick = () => {
+	console.log('hello');
+	// showCalendar = true
+}
 const { startDate, endDate } = storeToRefs(mainStore)
 // 滞留时间
 const gapOfDate = computed(() => getGapOfDate(startDate.value, endDate.value))
@@ -50,7 +55,7 @@ const onCalendarConfirm = values => {
 }
 // 热门建议
 const { hotSuggests } = storeToRefs(homeStore)
-// 开始搜索按钮
+// 点击搜索按钮
 const onSearchBtnClick = () => {
 	router.push({
 		path: '/search',
@@ -74,7 +79,7 @@ const onSearchBtnClick = () => {
 			</div>
 		</section>
 		<!-- 日期区域 -->
-		<section class="section date-range" @click="showCalendar = true">
+		<section class="section date-range" @click="onDataRangeClick">
 			<div class="date">
 				<span class="tip">入住</span>
 				<span class="time">{{ startDateStr }}</span>
@@ -170,6 +175,7 @@ const onSearchBtnClick = () => {
 .date-range {
 	justify-content: space-between;
 	margin-top: 10px;
+	border: 1px #f00 solid;
 
 	.end {
 		display: flex;

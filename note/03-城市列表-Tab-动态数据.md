@@ -68,8 +68,6 @@ const { allCities } = storeToRefs(cityStore)
 </style>
 ```
 
-
-
 # 给头部（以上搜索和 Tab 部分）做固定定位，2种方案（重要）
 
 给以上搜索和 Tab 部分做固定定位

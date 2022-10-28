@@ -17,7 +17,7 @@ const router = useRouter()
 const indexList = computed(() => ['#'].concat(props.groupsData.cities.map(item => item.group)))
 
 // 选择城市
-const onCityClick = (city) => {
+const onCityClick = city => {
 	cityStore.currentCity = city // 选中当前城市
 	router.back() // 返回上页
 }
