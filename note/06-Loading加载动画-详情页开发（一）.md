@@ -245,9 +245,7 @@ const getName = (name) => {
 	return res[1]
 }
 // 获取当前图片所在目录的索引
-const getCategoryIndex = item => {
-	return swiperGroup[item.enumPictureCategory].findIndex(iten => iten === item) + 1
-}
+const getCategoryIndex = item => swiperGroup[item.enumPictureCategory].findIndex(iten => iten === item) + 1
 </script>
 
 <template>

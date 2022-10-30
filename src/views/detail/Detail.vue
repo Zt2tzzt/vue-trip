@@ -48,7 +48,7 @@ const onTabItemClick = index => {
 	const el = sectionEls[key]
 	let distance = el.offsetTop
 	if (index !== 0) {
-		distance -= 44 + 46
+		distance -= 44 + 46 // 导航栏高度 44px，TabControl 栏高度 46px
 	}
 	isClick = true
 	currentDistance = distance
