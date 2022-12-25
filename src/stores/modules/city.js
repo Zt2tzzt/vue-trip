@@ -11,6 +11,7 @@ export default defineStore('city', {
 	actions: {
 		async fetchAllCities() {
 			const res = await getAllCities()
+			console.log('allCities res:', res.data)
 			this.allCities = res.data
 		}
 	}

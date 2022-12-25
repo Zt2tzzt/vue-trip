@@ -72,16 +72,18 @@ const { allCities } = storeToRefs(cityStore)
 
 给以上搜索和 Tab 部分做固定定位
 
-- 头部 fixed 定位；为下方滚动区域设置 margin-top，弊端：滚动条会出现在最上面，不推荐；
+- 方案一：头部 fixed 定位；为下方滚动区域设置 margin-top，
+  - 弊端：滚动条会出现在最上面，不推荐；
+- 方案二：下方滚动区域给固定高度，并进行纵向区域隐藏（推荐）。
 
-- 下方滚动区域给固定高度，并进行纵向区域隐藏（推荐）。
+src\views\city\City.vue
 
-  ```css
-  .content {
-    height: calc(100vh - 98px);
-    overflow-y: auto;
-  }
-  ```
+```css
+.content {
+  height: calc(100vh - 98px);
+  overflow-y: auto;
+}
+```
 
 # 使用 axios
 
@@ -97,7 +99,7 @@ src \ services \ request\ index.js
 
 ```js
 /*
- * axios封装的2点好处。
+ * axios 封装的2点好处。
  * 1. 如果 axios 某天不再维护，所有依赖 axios 的代码都不需要修改，只需要更改封装的代码。
  * 2. 发送请求代码，存在很多相同的逻辑。
  */
@@ -108,7 +110,7 @@ class ZTRequest {
 	interceptors = null
 
 	constructor(config) {
-		// 创建axios实例
+		// 创建 axios 实例
 		this.instance = axios.create(config)
 
 		// 保存基本信息
@@ -246,6 +248,8 @@ export * from './modules/home'
 
 为 City 组件创建对应的 store，在 store 中发送获取城市信息的网络请求。并展示数据。
 
+src\stores\modules\city.js
+
 
 # CityGroup 组件的封装
 
@@ -255,13 +259,19 @@ export * from './modules/home'
 
 点击城市，返回 Home，并展示选择的城市。
 
+src\views\city\cpns\CityGroup.vue
+
 # HomeSearchBox 组件的封装
 
 在 HomeSearchBox 中日期区域的开发。点击弹出日历供用户选择日期区间。
 
+src\views\home\cpns\HomeSearchBox.vue
+
 # dayjs 工具函数的封装
 
 基于 day.js 封装日期转换的工具函数。
+
+src\utils\format-date.js
 
 ```js
 import dayjs from "dayjs";
@@ -291,3 +301,5 @@ export const getGapOfDate = (startdate, endDate) => {
 # 在 Home 中发送网络请求
 
 在 Home 中获取热门建议关键词并展示。
+
+src\stores\modules\home.js

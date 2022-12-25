@@ -38,7 +38,7 @@ const onPositionClick = () => {
 
 const onDataRangeClick = () => {
 	console.log('hello');
-	// showCalendar = true
+	showCalendar.value = true
 }
 const { startDate, endDate } = storeToRefs(mainStore)
 // 滞留时间

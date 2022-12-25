@@ -11,16 +11,19 @@ export default defineStore('home', {
 	actions: {
 		fetchHotSuggestData() {
 			getHomeHotSuggests().then(res => {
+				console.log('hotSuggests res:', res.data)
 				this.hotSuggests = res.data
 			})
 		},
 		fetchCategories() {
 			getHomeCategories().then(res => {
+				console.log('categories res:', res)
 				this.categories = res.data
 			})
 		},
 		fetchHouseList() {
 			return getHouseList(this.currentPage++).then(res => {
+				console.log('houseList res:', res)
 				// this.houseList = this.houseList.concat(res.data)
 				this.houseList.push(...res.data)
 			})
